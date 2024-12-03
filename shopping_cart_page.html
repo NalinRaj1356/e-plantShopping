@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Shopping Cart</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif;">
+  <header style="background: lightgray; padding: 10px;">
+    <h1 style="display: inline;">GreenLeaf Houseplants</h1>
+    <div style="float: right;">
+      <span style="cursor: pointer;" onclick="location.href='product-listing.html'">Shop</span>
+    </div>
+  </header>
+  <div style="padding: 20px;">
+    <h2>Your Cart</h2>
+    <div id="cart-items" style="margin-bottom: 20px;">
+      <!-- Dynamically populated items -->
+    </div>
+    <p>Total Items: <span id="total-items">0</span></p>
+    <p>Total Cost: $<span id="total-cost">0.00</span></p>
+    <button onclick="alert('Coming Soon')" style="padding: 10px; background: green; color: white; border: none;">Checkout</button>
+    <button onclick="location.href='product-listing.html'" style="padding: 10px; background: gray; color: white; border: none; margin-left: 10px;">Continue Shopping</button>
+  </div>
+  <script>
+    let cart = [
+      { id: 1, name: "Snake Plant", price: 15, quantity: 1 },
+      { id: 2, name: "Aloe Vera", price: 10, quantity: 2 }
+    ];
+
+    function updateCart() {
+      const cartItemsDiv = document.getElementById("cart-items");
+      cartItemsDiv.innerHTML = "";
+      let totalItems = 0, totalCost = 0;
+
+      cart.forEach(item => {
+        totalItems += item.quantity;
+        totalCost += item.price * item.quantity;
+
+        cartItemsDiv.innerHTML += `
+          <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+            <img src="plant${item.id}.jpg" style="width: 50px; height: auto;" />
+            <span>${item.name} - $${item.price}</span>
+            <span>Quantity: ${item.quantity}</span>
+            <button onclick="incrementItem(${item.id})" style="padding: 5px; margin-left: 10px;">+</button>
+            <button onclick="decrementItem(${item.id})" style="padding: 5px;">-</button>
+            <button onclick="removeItem(${item.id})" style="padding: 5px;">Delete</button>
+          </div>`;
+      });
+
+      document.getElementById("total-items").textContent = totalItems;
+      document.getElementById("total-cost").textContent = totalCost.toFixed(2);
+    }
+
+    function incrementItem(id) {
+      const item = cart.find(i => i.id === id);
+      if (item) item.quantity++;
+      updateCart();
+    }
+
+    function decrementItem(id) {
+      const item = cart.find(i => i.id === id);
+      if (item && item.quantity > 1) item.quantity--;
+      else removeItem(id);
+      updateCart();
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(i => i.id !== id);
+      updateCart();
+    }
+
+    updateCart();
+  </script>
+</body>
+</html>
