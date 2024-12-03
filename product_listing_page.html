@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Products</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif;">
+  <header style="background: lightgray; padding: 10px;">
+    <h1 style="display: inline;">GreenLeaf Houseplants</h1>
+    <div style="float: right;">
+      <span style="cursor: pointer;" onclick="location.href='cart.html'">🛒 (<span id="cart-count">0</span>)</span>
+      <span style="margin-left: 10px; cursor: pointer;" onclick="location.href='landing.html'">Home</span>
+    </div>
+  </header>
+  <div>
+    <h2 style="text-align: center;">Our Plants</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+      <div style="margin: 10px; border: 1px solid #ccc; padding: 10px; width: 200px; text-align: center;">
+        <img src="plant1.jpg" alt="Plant 1" style="width: 100%; height: auto;" />
+        <h3>Snake Plant</h3>
+        <p>$15</p>
+        <button id="add-to-cart-1" onclick="addToCart(1, 'Snake Plant', 15)" style="padding: 5px 10px; background: green; color: white; border: none;">Add to Cart</button>
+      </div>
+      <!-- Add similar divs for 5 other plants -->
+    </div>
+  </div>
+  <script>
+    let cart = [];
+    function addToCart(id, name, price) {
+      cart.push({ id, name, price });
+      document.getElementById(`add-to-cart-${id}`).disabled = true;
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+  </script>
+</body>
+</html>
